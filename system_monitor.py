@@ -15,6 +15,8 @@ import random
 from datetime import datetime
 from collections import deque
 import glob
+import threading
+import time
 
 class JarvisMonitor:
     def __init__(self, root):
@@ -32,9 +34,33 @@ class JarvisMonitor:
         self.text_dim = '#4a6a7a'     # Dimmed text
         self.glow = '#00ffff'         # Glow effect
 
+        # Thread-safe stats storage (background thread writes, UI thread reads)
+        self._stats_lock = threading.Lock()
+        self._stats = {
+            'cpu_percent': 0,
+            'cpu_freq': None,
+            'cpu_count': psutil.cpu_count(),
+            'mem_percent': 0,
+            'mem_used': 0,
+            'mem_total': 0,
+            'net_up_speed': 0,
+            'net_down_speed': 0,
+            'net_total_sent': 0,
+            'net_total_recv': 0,
+            'swap_percent': 0,
+            'proc_count': 0,
+            'battery_percent': None,
+            'battery_plugged': False,
+            'top_process': '...',
+            'gpu_status': 'ACTIVE',
+            'gpu_info': self._get_gpu_info(),
+            'self_mem': 0,
+        }
+
+        # Flag to stop background thread
+        self._running = True
+
         # Initialize data
-        self.last_net_io = psutil.net_io_counters()
-        self.last_update = datetime.now()
         self.process = psutil.Process(os.getpid())
 
         # Pre-create fonts
@@ -67,6 +93,26 @@ class JarvisMonitor:
 
         # Load frames after UI is shown
         self.root.after(100, self.initialize_app)
+
+        # Handle window close
+        self.root.protocol("WM_DELETE_WINDOW", self._on_close)
+
+    def _get_gpu_info(self):
+        """Get GPU info string - called once at init"""
+        system = platform.system()
+        machine = platform.machine()
+        if system == 'Darwin':
+            return "Apple Silicon" if machine == 'arm64' else "Intel GPU"
+        elif system == 'Windows':
+            return "Windows GPU"
+        elif system == 'Linux':
+            return "Linux GPU"
+        return "GPU"
+
+    def _on_close(self):
+        """Handle window close - stop background thread"""
+        self._running = False
+        self.root.destroy()
 
     def show_loading_screen(self):
         """Show loading screen while model loads"""
@@ -127,10 +173,115 @@ class JarvisMonitor:
 
         self.setup_ui()
 
-        # Start updates
-        self.update_stats()
+        # Start background stats collection thread
+        self._stats_thread = threading.Thread(target=self._collect_stats_background, daemon=True)
+        self._stats_thread.start()
+
+        # Start UI updates (reads from shared stats - very fast)
+        self.update_ui()
+
+        # Start animations (completely independent)
         self.animate_model()
         self.scroll_code()
+
+    def _collect_stats_background(self):
+        """Background thread: Collect all system stats without blocking UI"""
+        last_net_io = psutil.net_io_counters()
+        last_time = time.time()
+        proc_update_counter = 0
+
+        while self._running:
+            try:
+                # Collect all stats (this can be slow - doesn't matter, we're in background)
+                cpu_percent = psutil.cpu_percent(interval=0.5)  # Blocking is fine here
+                cpu_freq = psutil.cpu_freq()
+                mem = psutil.virtual_memory()
+
+                # Network
+                current_time = time.time()
+                current_net_io = psutil.net_io_counters()
+                time_delta = current_time - last_time
+
+                if time_delta > 0:
+                    up_speed = (current_net_io.bytes_sent - last_net_io.bytes_sent) / time_delta
+                    down_speed = (current_net_io.bytes_recv - last_net_io.bytes_recv) / time_delta
+                else:
+                    up_speed = 0
+                    down_speed = 0
+
+                last_net_io = current_net_io
+                last_time = current_time
+
+                # Swap
+                try:
+                    swap = psutil.swap_memory()
+                    swap_percent = swap.percent
+                except:
+                    swap_percent = 0
+
+                # Process count
+                try:
+                    proc_count = len(psutil.pids())
+                except:
+                    proc_count = 0
+
+                # Battery
+                battery_percent = None
+                battery_plugged = False
+                try:
+                    battery = psutil.sensors_battery()
+                    if battery:
+                        battery_percent = battery.percent
+                        battery_plugged = battery.power_plugged
+                except:
+                    pass
+
+                # Top process (only every few iterations - very expensive)
+                proc_update_counter += 1
+                top_process = None
+                if proc_update_counter >= 5:
+                    proc_update_counter = 0
+                    try:
+                        top_proc = max(
+                            psutil.process_iter(['name', 'cpu_percent']),
+                            key=lambda p: p.info['cpu_percent'] or 0
+                        )
+                        if top_proc.info['cpu_percent'] and top_proc.info['cpu_percent'] > 0:
+                            top_process = top_proc.info['name'][:10]
+                    except:
+                        pass
+
+                # Self memory
+                try:
+                    self_mem = self.process.memory_info().rss
+                except:
+                    self_mem = 0
+
+                # Update shared stats (thread-safe)
+                with self._stats_lock:
+                    self._stats['cpu_percent'] = cpu_percent
+                    self._stats['cpu_freq'] = cpu_freq.current if cpu_freq else None
+                    self._stats['mem_percent'] = mem.percent
+                    self._stats['mem_used'] = mem.used
+                    self._stats['mem_total'] = mem.total
+                    self._stats['net_up_speed'] = up_speed
+                    self._stats['net_down_speed'] = down_speed
+                    self._stats['net_total_sent'] = current_net_io.bytes_sent
+                    self._stats['net_total_recv'] = current_net_io.bytes_recv
+                    self._stats['swap_percent'] = swap_percent
+                    self._stats['proc_count'] = proc_count
+                    self._stats['battery_percent'] = battery_percent
+                    self._stats['battery_plugged'] = battery_plugged
+                    if top_process:
+                        self._stats['top_process'] = top_process
+                    self._stats['self_mem'] = self_mem
+
+                # Sleep a bit before next collection
+                time.sleep(0.5)
+
+            except Exception as e:
+                print(f"Background stats error: {e}")
+                time.sleep(1)
 
     def load_frames(self):
         """Load pre-rendered animation frames"""
@@ -409,6 +560,9 @@ class JarvisMonitor:
 
     def scroll_code(self):
         """Animate scrolling code in side panels"""
+        if not self._running:
+            return
+
         if not self.code_lines:
             self.root.after(100, self.scroll_code)
             return
@@ -601,14 +755,14 @@ class JarvisMonitor:
         self.proc_mem_label.pack(side=tk.RIGHT)
 
         # Center - status
-        self.status_label = tk.Label(
+        self.footer_status_label = tk.Label(
             footer_frame,
             text="ALL SYSTEMS OPERATIONAL",
             font=self.hud_font,
             bg=self.bg_color,
             fg=self.primary
         )
-        self.status_label.pack()
+        self.footer_status_label.pack()
 
     def draw_arc_gauge(self, canvas, value, max_value=100, color=None):
         """Draw a JARVIS-style arc gauge"""
@@ -711,12 +865,15 @@ class JarvisMonitor:
                                   fill=self.accent, width=1)
 
     def animate_model(self):
-        """Animate the 3D model by cycling through pre-rendered frames"""
+        """Animate the 3D model by cycling through pre-rendered frames - NEVER BLOCKS"""
+        if not self._running:
+            return
+
         if self.frames:
             self.model_label.config(image=self.frames[self.current_frame])
             self.current_frame = (self.current_frame + 1) % len(self.frames)
 
-        # Smooth 60fps-like animation (every 50ms = 20fps, good balance)
+        # Smooth animation at 20fps
         self.root.after(50, self.animate_model)
 
     def format_bytes(self, bytes_val):
@@ -736,120 +893,73 @@ class JarvisMonitor:
         else:
             return f"{bytes_per_sec/(1024*1024):.1f} MB/s"
 
-    def update_stats(self):
-        """Update all system statistics"""
+    def update_ui(self):
+        """Update UI from background-collected stats - FAST, NO BLOCKING"""
+        if not self._running:
+            return
+
         try:
-            # CPU (non-blocking - uses value since last call)
-            cpu_percent = psutil.cpu_percent(interval=None)
+            # Read stats (thread-safe, very fast)
+            with self._stats_lock:
+                stats = self._stats.copy()
+
+            # CPU
+            cpu_percent = stats['cpu_percent']
             self.cpu_history.append(cpu_percent)
             self.draw_arc_gauge(self.cpu_canvas, cpu_percent, color=self.primary)
             self.cpu_value_label.config(text=f"{cpu_percent:.1f}%")
-            self.cpu_detail_label.config(text=f"{psutil.cpu_count()} CORES @ {psutil.cpu_freq().current:.0f} MHz" if psutil.cpu_freq() else f"{psutil.cpu_count()} CORES")
+            cpu_freq = stats['cpu_freq']
+            if cpu_freq:
+                self.cpu_detail_label.config(text=f"{stats['cpu_count']} CORES @ {cpu_freq:.0f} MHz")
+            else:
+                self.cpu_detail_label.config(text=f"{stats['cpu_count']} CORES")
 
             # Memory
-            mem = psutil.virtual_memory()
-            self.mem_history.append(mem.percent)
-            self.draw_arc_gauge(self.mem_canvas, mem.percent, color=self.accent)
-            self.mem_value_label.config(text=f"{mem.percent:.1f}%")
-            self.mem_detail_label.config(text=f"{self.format_bytes(mem.used)} / {self.format_bytes(mem.total)}")
+            mem_percent = stats['mem_percent']
+            self.mem_history.append(mem_percent)
+            self.draw_arc_gauge(self.mem_canvas, mem_percent, color=self.accent)
+            self.mem_value_label.config(text=f"{mem_percent:.1f}%")
+            self.mem_detail_label.config(text=f"{self.format_bytes(stats['mem_used'])} / {self.format_bytes(stats['mem_total'])}")
 
             # GPU
-            gpu_status, gpu_info = self.get_gpu_usage()
-            self.gpu_value_label.config(text=gpu_status)
-            self.gpu_detail_label.config(text=gpu_info)
+            self.gpu_value_label.config(text=stats['gpu_status'])
+            self.gpu_detail_label.config(text=stats['gpu_info'])
 
             # Network
+            up_speed = stats['net_up_speed']
+            down_speed = stats['net_down_speed']
+            self.net_up_history.append(up_speed)
+            self.net_down_history.append(down_speed)
+            self.net_up_label.config(text=self.format_speed(up_speed))
+            self.net_down_label.config(text=self.format_speed(down_speed))
+            self.total_tx_label.config(text=self.format_bytes(stats['net_total_sent']))
+            self.total_rx_label.config(text=self.format_bytes(stats['net_total_recv']))
+            self.draw_network_graph()
+
+            # Live stats
+            self.swap_label.config(text=f"{stats['swap_percent']}%")
+            self.proc_count_label.config(text=str(stats['proc_count']))
+
+            # Battery
+            if stats['battery_percent'] is not None:
+                status = "⚡" if stats['battery_plugged'] else ""
+                self.battery_label.config(text=f"{stats['battery_percent']:.0f}%{status}")
+            else:
+                self.battery_label.config(text="AC")
+
+            # Top process
+            self.top_proc_label.config(text=stats['top_process'])
+
+            # Footer
             now = datetime.now()
-            current_net_io = psutil.net_io_counters()
-            time_delta = (now - self.last_update).total_seconds()
-
-            if time_delta > 0:
-                upload_speed = (current_net_io.bytes_sent - self.last_net_io.bytes_sent) / time_delta
-                download_speed = (current_net_io.bytes_recv - self.last_net_io.bytes_recv) / time_delta
-
-                # Record history for graph
-                self.net_up_history.append(upload_speed)
-                self.net_down_history.append(download_speed)
-
-                self.net_up_label.config(text=self.format_speed(upload_speed))
-                self.net_down_label.config(text=self.format_speed(download_speed))
-
-                self.total_tx_label.config(text=f"{self.format_bytes(current_net_io.bytes_sent)}")
-                self.total_rx_label.config(text=f"{self.format_bytes(current_net_io.bytes_recv)}")
-
-                # Draw network graph
-                self.draw_network_graph()
-
-            self.last_net_io = current_net_io
-            self.last_update = now
-
-            # Live stats updates
-            try:
-                swap = psutil.swap_memory()
-                self.swap_label.config(text=f"{swap.percent}%")
-            except:
-                pass
-
-            try:
-                self.proc_count_label.config(text=str(len(psutil.pids())))
-            except:
-                pass
-
-            try:
-                battery = psutil.sensors_battery()
-                if battery:
-                    status = "⚡" if battery.power_plugged else ""
-                    self.battery_label.config(text=f"{battery.percent:.0f}%{status}")
-                else:
-                    self.battery_label.config(text="AC")
-            except:
-                self.battery_label.config(text="N/A")
-
-            # Get top CPU process (only every 5 seconds - expensive on Windows)
-            if not hasattr(self, '_proc_update_counter'):
-                self._proc_update_counter = 0
-            self._proc_update_counter += 1
-            if self._proc_update_counter >= 5:
-                self._proc_update_counter = 0
-                try:
-                    top_proc = max(
-                        psutil.process_iter(['name', 'cpu_percent']),
-                        key=lambda p: p.info['cpu_percent'] or 0
-                    )
-                    if top_proc.info['cpu_percent'] and top_proc.info['cpu_percent'] > 0:
-                        self.top_proc_label.config(text=top_proc.info['name'][:10])
-                except:
-                    pass
-
-            # Footer updates
             self.time_label.config(text=now.strftime("SYS.TIME: %Y-%m-%d %H:%M:%S"))
-            self_mem = self.process.memory_info().rss
-            self.proc_mem_label.config(text=f"PROC.MEM: {self.format_bytes(self_mem)}")
+            self.proc_mem_label.config(text=f"PROC.MEM: {self.format_bytes(stats['self_mem'])}")
 
         except Exception as e:
-            print(f"Error updating stats: {e}")
+            print(f"UI update error: {e}")
 
-        self.root.after(1000, self.update_stats)
-
-    def get_gpu_usage(self):
-        """Get GPU status - cross-platform"""
-        try:
-            system = platform.system()
-            machine = platform.machine()
-
-            if system == 'Darwin':  # macOS
-                if machine == 'arm64':
-                    return "ACTIVE", "Apple Silicon"
-                else:
-                    return "ACTIVE", "Intel GPU"
-            elif system == 'Windows':
-                return "ACTIVE", "Windows GPU"
-            elif system == 'Linux':
-                return "ACTIVE", "Linux GPU"
-            else:
-                return "ACTIVE", "GPU"
-        except:
-            return "N/A", "Unknown"
+        # Schedule next UI update (fast interval since we're just reading cached data)
+        self.root.after(500, self.update_ui)
 
 
 def main():
