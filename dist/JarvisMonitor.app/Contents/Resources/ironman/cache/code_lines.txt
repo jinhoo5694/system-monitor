@@ -1,0 +1,1000 @@
+        data_update = ['b', 'd', 'e']
+(?:\x1b([(@-Z\\-_]|\[[0-?]*[ -/]*[@-~]))
+    def __init__(self, glyphset=None, tolerance=0.005):
+class TestEye:
+        # See
+    """
+np.swapaxes(B, 0, 0)
+He9 = np.array([0, 945, 0, -1260, 0, 378, 0, -36, 0, 1])
+        "min": (60.0, "sec"),
+        assert f(1023) == '1023 bytes'
+            msg = "not a PIXAR file"
+    PageName = 0x011D
+const JARVIS_VERSION = '4.0.1';
+def choose_boundary():
+        assert_raises(IndexError, a.put, 100, 0)
+    "roundFunc",
+    inner,
+                {
+        for point in range(1 + 3 * n)
+        self.show_time = show_time
+from fontTools.pens.filterPen import ContourFilterPen
+    def test__zseries_to_cseries(self):
+import datetime
+                continue
+To convert a VTP project file:
+) -> list[InstallationResult]:
+    """
+    @pytest.mark.slow
+CmpLocalType = Union[
+    buildMultiVarData,
+    * This is a framework build.
+from numpy._core.multiarray import packbits, unpackbits
+import urllib.parse
+        modname, functions, *, prologue="", build_dir=None,
+        new_lines = []
+        "-o",
+import math
+import ctypes as ct
+from typing import Any
+	{104: -0.02777862548828125, 107: -0.02777862548828125}
+    24: ("RGB", "BGR"),
+        r, g, b, a = value
+from matplotlib import (
+ex.AxisError("test")
+    # this is ok
+# ScriptExtensions-17.0.0.txt
+from pip._internal.cli import cmdoptions
+                break
+from operator import itemgetter
+            Defaults to None.
+# For more information, see:
+    "canonicalize_license_expression",
+import stat
+    def add(self, set_of_things):
+def as_z_interp(z_interp: ZInterp | str) -> ZInterp:
+release = 'dev' not in version and '+' not in version
+            raise ImportError(
+        locator = ax.get_axes_locator()
+        alert(
+        header = self.fp.read(32 + 24 + 32 + 12)
+from email.message import Message
+    binary_type = bytes
+# Must use state address not state with numba
+    def _apply(filter_, stream):
+UFUNCS_UNARY = [
+from ._ratio import ratio_distribute, ratio_reduce
+        super().__init__(*args, **kwargs)
+from PIL import Image
+            imported_mod = sys.modules[mod]
+    def serialize(self) -> str:
+        def __init__(self, array):
+from fontTools.misc.loggingTools import deprecateFunction
+        # set in subprocess_run_helper() below
+def test_ticks():
+from fontTools.misc.roundTools import otRound
+Parse X Bitmap Distribution Format (BDF)
+    """
+# pylab in one fell swoop
+    from matplotlib.backends.qt_editor import _formlayout
+from typing import Any, cast
+        return hash(repr(self))
+    if extension is None:
+from ._emoji_codes import EMOJI
+        precision=2,
+from matplotlib.ticker import FuncFormatter
+def writePlistToString(value):
+		tableVersion:       16.16F
+    maximum: float
+class Rule(JupyterMixin):
+    from ._utils import _raise_warning
+from psutil.tests import TOLERANCE_SYS_MEM
+    def qCurveTo(self, *points):
+        return (isinstance(obj, _base._AxesBase)
+_log = logging.getLogger(__name__)
+        x = np.arange(3, dtype=np.float32)
+# of this glyphs array of ns Metadata string entries.
+    return analysis.run();
+        if len(val) != 1:
+import os
+        expand: bool = True,
+from pip._internal.models.search_scope import SearchScope
+            ws.readyState = comm.kernel.ws.readyState;
+        height : float
+/* global mpl */
+import re
+from pip._internal.metadata import get_default_environment
+from psutil.tests import PYTHON_EXE
+    Iterable,
+from socket import error as SocketError
+by C code.
+-------
+    try:
+from numpy._utils import set_module
+end python module {module_name}
+    assert_array_almost_equal,
+  BearingY: b
+import os
+import pickle
+from psutil.tests import ASCII_FS
+    Optional as O,  # noqa: N817
+        self.req.load_pyproject_toml()
+import errno
+    """Import the requested items into the global scope.
+# Copyright (c) 2002 by Fredrik Lundh
+    @wraps(f)
+from fontTools.ttLib.tables import otTables as ot
+    base_candidate_classes = (
+# 97-05-17 fl   Support the "pilbitmap" booster patch
+    """Remove all empty parents."""
+        offset = 0
+    _zfill,
+    Model = 0x0110
+        self.hMetrics = font["hmtx"].metrics
+from .measure import Measurement
+        ("Key_Up", "up"),
+from psutil.tests import HAS_RLIMIT
+        updated_locs = [0, 1, 2, 3]
+        self._optionally_create_directory(path)
+import warnings
+    """Align a renderable by adding spaces if necessary.
+        pytest.raises(ValueError, t, array([0, 0]))
+    def _set_lim_and_transforms(self):
+import traceback
+import numpy._core.multiarray as ma
+    -----
+class Color(_Enhance):
+        file_like (IO): A file-like object.
+from .errors import VarLibError, VarLibValidationError
+        env_variables:
+                (sec is not None and jd is None) or
+    ysize = ((1-2*pad)/3) * Size.AxesY(ax)
+if __name__ == "__main__":
+    if depth <= 1:
+del _api, _sys  # type: ignore[name-defined] # noqa: F821
+        figure : `~matplotlib.figure.Figure`
+import os
+@set_module("numpy.lib.user_array")
+def import_global(  # noqa: C901
+             same directory.
+    FoundANone,
+    0: {  # Unicode
+from .crackfortran import markoutercomma
+def yield_lines(iterable):
+from fontTools.misc.loggingTools import deprecateFunction
+class TestSeed:
+He3 = np.array([0, -3, 0, 1])
+from pip._vendor.urllib3.fields import RequestField
+    with contextlib.suppress(Exception):
+    parser = ArgumentParser(
+    This allows for formatting with the unit string.
+log = logging.getLogger(__name__)
+except (AttributeError, ImportError):
+        if remaining <= 0:
+        self.contentStack = []
+    _axes: Sequence[Axes]
+from psutil import AIX
+        x = scalar()
+def read_json(path):
+from .fromnumeric import any
+    QBuffer: type
+            if points is None:
+#       97-01-20 fl     Created
+import errno
+            return np.column_stack([x, y - x])
+_log = logging.getLogger(__name__)
+            pos += 4
+            Default ``None``.
+    def __str__(self):
+import warnings
+    "Criterion",
+from typing import TYPE_CHECKING, Final, TypeAlias, cast
+from collections.abc import Iterable
+    _selected_real_kind_func as selected_real_kind,
+                     'Insert': 'insert',
+class Infinity:
+        n = len(obj)
+from __future__ import annotations
+import socket
+# use it.
+    """
+from numpy.ma.testutils import assert_equal
+        preparer: RequirementPreparer,
+                self._readFile()
+from types import FrameType, ModuleType, TracebackType
+reactor_temp = 347.2;
+import warnings
+from ._compat import FileNotFoundError
+        self.dispose_func = dispose_func
+    "BaseEnvironment",
+    ----------
+            if points is None:
+    (2433, 2435, 0),
+UNKNOWN_ERROR = 2
+from pip._vendor.packaging.utils import (
+        pybind11_version="3.0.0",
+GPOS_COMPACT_MODE_ENV_KEY = "FONTTOOLS_GPOS_COMPACT_MODE"
+if sys.version_info >= (3, 13):
+from __future__ import annotations
+_unicode_dots_re = re.compile("[\u002e\u3002\uff0e\uff61]")
+    if ret is None:
+        # head
+  qtables="preset_name"
+    def __init__(self):
+    "RS",
+from psutil import SUNOS
+                    term.show_cursor()
+    def __init__(
+# Launch script for System Monitor
+    return np.prod((n + 1 - i)/i).astype(int)
+    cache_etags: bool = True,
+    "antialiased": ["antialiaseds", "aa"],
+class Backend(ABC):
+        word = word_match.group(0)
+        rng.set_state(state)
+:mod:`matplotlib.lines`
+def _get_preamble():
+from matplotlib import _api
+zip_descr = np.lib.recfunctions._zip_descr
+    half = (prev + curr) / 2
+Silf_part1_format = """
+    @pytest.mark.slow
+papersize = {'letter': (8.5, 11),
+import io
+        )
+        (0, 170, 0),
+    MODE_FILENAME_ = "FILENAME"
+        - packrat parsing
+def sysctl(cmdline):
+Copyright 1999 -- 2011 Pearu Peterson all rights reserved.
+    def test__total_size(self):
+    """
+class TestDatetimePlotting:
+from matplotlib.text import Text
+    OpenType Layout.
+    binary as to be opened (eg. .ttf or .otf).
+    def get_base_rev_args(rev: str) -> list[str]:
+        # docstring inherited
+        self._draw_pending = False
+    outmess,
+>>> import matplotlib as mpl
+``"1"``                        |m07|  tri_down
+        # ouch: the assertion is not true in Chicago!
+        if len(subtree) < full_step:
+# Date: 2025-08-01
+ENV_NAMES_IGNORED = "version", "help"
+    """
+	>>> # Accessing a pair gets you the kern value
+            return 0.0
+import matplotlib.artist as martist
+from matplotlib.figure import Figure
+    Copyright (C) 2002-2003 Kevin Cazabon
+from psutil import FREEBSD
+# Windows Cursor support for PIL
+    from numpy._pytesttester import PytestTester
+import os
+        # print '-> first string empty'
+# FLI/FLC file handling.
+        category=DeprecationWarning,
+class WebPImageFile(ImageFile.ImageFile):
+# Requirement parsing code as per PEP 508
+        return False
+# 2001-04-17 fl   Added palette optimization (0.7)
+For types associated with installation schemes.
+# Copyright (c) Fredrik Lundh 1996-2003.
+from matplotlib import _api, _docstring
+        self._timers = set()
+    ('x', 'i4', (2,)),
+from collections import defaultdict, namedtuple
+from ._binary import i16le as l16
+from collections import namedtuple
+NEW_SCRIPT_TAGS = {
+    ... def some_function():
+    def field(self) -> tuple[tuple[int, int] | None, int]:
+    InstallationSubprocessError,
+Arithmetic
+        )
+    assert not xc.flags.f_contiguous
+	offsetToSVGDocIndex:      L
+    def __init__(self, parent_axes, aux_transform=None,
+import atexit
+    Instance method objects provide these attributes:
+from numpy.exceptions import AxisError
+    print(
+    return None, None
+HAS_PROC_IO_COUNTERS = hasattr(cext, "proc_io_counters")
+    REPLACEMENT,
+    return len(prefix) >= 4 and i32(prefix) == MAGIC
+# 2000-10-12 fl   Copy on write, when necessary
+            default=os.curdir,
+    def __init__(self, overflowTuple):
+        self._unit_y = 1.0
+        r = self.module.sum_with_use([1, 2])
+        show(vars[a])
+import sys
+        (180, 0, 158),
+            self._in_main_context = False
+from datetime import datetime
+# part is autogenerated by the boilerplate.py script.
+from . import DefaultTable
+    fromarrays,
+# Copied from cu2qu
+    assert_equal,
+        0x101A0000101A1,
+        The new figure size in inches.
+    .. note::
+            tb_msg += line
+        if TYPE_CHECKING:
+import numpy as np
+a[...] = "3"
+    for artist in b:
+        elif isinstance(names, str):
+        for pen in self.pens:
+        for subtable in self.kernTables:
+import warnings
+    def remove(self):
+        Ar1 = np.array([[1, 2, 3, 4], [1, 2, 3, 4]])
+@_add_method(ttLib.getTableClass("CFF "))
+        assert self.module.foo_free.bar13() == 13
+        mod = crackfortran.crackfortran([str(fpath)])
+    elif (is_button and event.button == MouseButton.RIGHT
+) -> Iterable[SubTablePath]:
+from functools import lru_cache
+import os
+# The Python Imaging Library
+    @cython.locals(r10=cython.double)
+License reproduced from original source below:
+        w = allocation.width * scale
+    entry = fontmap[b'TeXfont6']
+    PCG64,
+# TODO: branch cuts (use Pauli code)
+        pyproject = tomllib.load(fp)
+T7 = [0, -7, 0, 56, 0, -112, 0, 64]
+import contextlib
+                     np.poly1d([-1, 1]))
+StandardEncoding = [
+from .bit_generator import BitGenerator
+from __future__ import annotations
+import os
+        return True
+    multiply as _multiply_ufunc,
+                    dependency[0],
+except ImportError:
+          0.625: 0.5,
+from psutil import NETBSD
+import pytest
+import warnings
+        return False
+.. data:: MAX_F2DOT14
+import sys
+    Args:
+        for tag in self.tags:
+    USER="user",  # User Specific
+        else:
+        return all(ref == item for item in lst)
+import sys
+    """
+        return line,
+        'SConstruct',
+from contourpy import FillType, LineType
+    class_types = (type,)
+    def __init__(self, tag=None):
+if TYPE_CHECKING:
+from typing import Any, cast
+        self.max_data_points = 60
+from .otTables import (
+    def _create_bitmap(self):
+            return name
+    unpack `Timestamp`.
+        plt.close("all")
+import Cython
+    :param user_agent:
+    FT_OUTLINE_NONE,
+# Copyright (c) 1997 by Secret Labs AB.
+def CacheControl(
+    Locale information is not used by asctime().
+__all__ = [
+from pip._internal.exceptions import (
+def _cpu_count():
+        return self.candidate.name
+            title = None
+# Sun image file handling
+    new_key = (keys_vals[1][0], object())
+import collections.abc
+import io
+spectral computations and kernel density estimations.
+        >>> h2 = hashdict({"bananas": 3, "mangoes": 5})
+def boot_jarvis_core():
+            )
+version.bugfix
+from numpy.testing import (
+                               [b'long', b'0123456789']])
+GIT_VERSION_REGEX = re.compile(
+    if isinstance(value, six.binary_type):
+        for i in range(numPalettes):
+from psutil.tests import HAS_BATTERY
+        """
+    AbstractResolver,
+from matplotlib._pylab_helpers import Gcf
+        return str.__hash__(self)
+        len(prefix) >= 16
+                a // 0
+        """
+    with warnings.catch_warnings(record=True) as w:
+    0x0F3D: 0x0F3C,
+    def visitAttr(self, obj, attr, value, *args, **kwargs):
+from .cells import cell_len
+**Arrow length**
+import numpy.lib.array_utils as array_utils
+import logging
+    b"P3": "RGB",
+    (such as for POST, PUT, PATCH).
+    p = Polygon(xy, closed=False)
+    "default_environment",
+    COMPLEX = 0x8
+from .terminal_theme import DEFAULT_TERMINAL_THEME
+    def on_draw_event(self, widget, ctx):
+from typing import Callable, Literal, TypeVar
+armor.integrity = 98.7;
+    base_exception = Exception
+        List[int]: Number of characters for each edge.
+from numpy import (
+from . import _manylinux, _musllinux
+    def __init__(self, glyphSet, path=None):
+        DefaultTable.DefaultTable.__init__(self, tag)
+import logging
+            used.append(value.ValueNameID)
+    def func(self, other):
+A.all()
+import operator
+elif sys.platform == "darwin":
+import warnings
+        """Apply the offset to the given transform."""
+        help="Specify the table(s) to be built.",
+         r"\usepackage{courier}", r"\ttfamily"),
+from .compat import sysconfig, detect_encoding, ZipFile
+    "version",
+import pytest
+    def blit(self, bbox=None):
+import re
+                                      NavigationToolbar2)
+    CDLL,
+        """
+        raise NotImplementedError()
+an import statement.
+from .measure import Measurement
+        self.variant = variant
+Copyright 1999 -- 2011 Pearu Peterson all rights reserved.
+from typing import TYPE_CHECKING
+# -*- coding: utf-8 -*-
+        ensure_ascii: bool = False,
+  horiBearingY: b
+    for i in range(len(amp)):
+    UnboundedMemo as _UnboundedMemo,
+    c_uint32,
+    from pip._internal.cli.main import main as _main
+# $Id$
+        assert a.tobytes() == b"123\0\0"
+b_i4_f8_f8.reset()
+    check_support_sve,
+from matplotlib.backend_bases import _Backend
+    def test_mem_masked_where(self):
+}
+                for pin in pins.keys():
+i8 = np.int64(1)
+                if isinstance(arg, tuple):
+        a = np.arange(12)
+    Sequence,
+            # This should work
+             'legal': (8.5, 14),
+- local files : '/home/guido/src/local/data.txt'
+        define_macros,
+        # FigureCanvasAgg.draw(self) to be called.
+        return "<operator %s>" % self.name
+    "Greek": (
+============================
+import pytest
+    # the end* to have the right method resolution order.
+    {% endif %}
+    partition as strings_partition,
+def test_unicode_characters():
+        File open mode.
+# Angles [deg/90]
+Usage: """
+    "?", "|?", "=?", "<?", ">?",
+    8, 5, 2,
+    def test_fromrecords_0len(self):
+    da.add_artist(line)
+def _from_ctypes_array(t):
+from pip._internal.utils.virtualenv import (
+    def __str__(self):
+def _generate_complete_test_figure(fig_ref):
+ - Linux
+        """
+        assert_equal(res, tgt)
+    Callable,
+        return self.candidate == other.candidate
+        return self.message
+    arcsin,
+:rc:`text.usetex` to True.
+from matplotlib._pylab_helpers import Gcf
+    ${ARRAY_FUNCTION_LIKE}
+import sys
+~~~~~~~~~~~~~
+        return urllib.parse.urljoin(self.url, path)
+    globals_: types.OptionalScope = None,
+    SubfileType = 0x00FF
+# 2002-06-06 fl   Added transparency support for save (0.8)
+        return _i(self.info[key])
+reactor_temp = 347.2;
+from __future__ import annotations
+from . import licenses, requirements, specifiers, utils
+log = logging.getLogger(__name__)
+    def __deepcopy__(self, memo):
+        if errors != "strict":
+        self.cmd_opts.add_option(
+AR_b: np.ndarray[Any, np.dtype[np.bool]] = np.array([True])
+        depending on whether keyword arg *filled* is False
+    def __init__(
+        res = intersect1d(a, a)
+    0x0378,  # .. 0x0379 ; Unknown
+from fontTools.feaLib.error import FeatureLibError
+np.sin.__name__
+import math
+from warnings import warn
+        methods: bool = False,
+        self.assertEqual(psutil_swap.total, total)
+    else:
+    blues = mpl.colormaps['Blues']
+        self.bit = 1 << bit_no
+    @wraps(f)
+import itertools
+import numpy as np
+    Packages are listed in a case-insensitive sorted order.
+    Install application-specific GRIB image handler.
+		xMax:               h
+from fontTools.ttLib.tables import otTables
+    ... ]
+normalization and a colormap.
+    return prefix.startswith(olefile.MAGIC)
+:mod:`matplotlib.patches`
+    def __init__(
+from .backend_agg import FigureCanvasAgg
+  itself (only LaTeX is supported).
+f8 = np.float64()
+from contourpy.types import MOVETO, offset_dtype
+# default logging level used by Timer class
+    _expandtabs,
+import re
+    def test_cov_parameters(self):
+import operator
+    transformed[:, :, 1] = -vectors[:, :, 2]
+                             [0, 1, 2, 3, 4]))]
+from matplotlib.backend_bases import KeyEvent, MouseEvent
+    def test_hermeone(self):
+# Copyright (c) 2013 by Eric Soroos
+from __future__ import annotations
+"""Catch all for categorical functions"""
+from __future__ import annotations
+        y = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4]
+    - :class:`strip_html_tags`
+    series : sequence
+                        reason="Fails for 32 bit machines")
+            getGlyphName = self.getGlyphName
+        assert abs(t(array(234, "i")) - 234.0) <= err
+        if ret:
+    pass
+from fontTools.misc.fixedTools import fixedToFloat
+        self._commands = []
+import ast
+    c2py_map = {"int": "int", "rubbish_type": "long"}
+    pygments.unistring
+        msg = "should only be used on Unix"
+        size: tuple[int, int],
+    """Helper to work around pd_NA boolean behavior"""
+  aio_generator_timeout_detector.
+        # use different markers...
+    'SasStyle': ('pygments.styles.sas', 'sas', ()),
+class InMemoryMetadata:
+SPINS_PER_SECOND: Final = 8
+@needs_usetex
+from . import _psposix
+# History:
+        for path in __path__:
+from pip._internal.utils.logging import indent_log
+    "(?:(?:%(hex)s:){0,3}%(hex)s)?::%(hex)s:%(ls32)s",
+np.sin([1, 2, 3])
+import struct
+        super().__init__()
+                # waste of memory
+    assert_(val.shape == (10, 10))
+# Redistributions in binary form must reproduce the above
+from matplotlib import cbook
+    __author_email__ (str): The email of the author.
+import sys
+flight_systems.engage();
+            <_rd>, intent(in,out) :: tol
+    DEPTH = 0x800000
+    usage = """
+import struct
+    eliminate_quotes,
+        if parsed.marker is not None:
+    divider = make_axes_locatable(ax)
+                input = input[pos:]
+    def match(self, color: Tuple[int, int, int]) -> int:
+    """
+    InstallRequirement,
+from .jupyter import JupyterMixin, JupyterRenderable
+        yPels.frombytes(data)
+        selectedrealkind = self.module.selectedrealkind
+``"d"``                        |m20|  thin_diamond
+from array import array
+                   [0.148, 0.244, 0.326],
+        yield pytest.param(dt, id=str(dt))
+import re
+        args = sys.argv[1:]
+Check the numpy config is valid.
+    return analysis.run();
+                                     shrinkA=0.,
+from ._tools import copy_file_data
+    def test_int(self):
+from matplotlib import _api
+    .. note::
+import numpy as np
+        assert_(C[0, 0] == A[0, 0])
+import codecs
+class TestRenamedSubroutine(util.F2PyTest):
+from ._binary import o16le as o16
+TSIB contains the source text for the ``BASE`` table.
+    return version
+if sys.byteorder == 'little':
+class InteractiveSpinner(SpinnerInterface):
+class table_C_F_F__2(table_C_F_F_):
+		numGlyplets:		H
+    "measureSlant",
+    assert cmap[8729] == 30
+from .markers import MarkerStyle
+    """
+        self.sender = sender
+        minor = str(version.minor)
+    imageValidator,
+                "caretOffset",
+capi_fail:
+    mintypecode,
+    'IgorStyle': ('pygments.styles.igor', 'igor', ()),
+* FTU files are not compressed.
+    >>> low, high = np.lib.array_utils.byte_bounds(I)
+        self._parent = parent
+	</SVG>
+from unittest.case import SkipTest
+# Distributed under the terms of the Modified BSD License.
+def test_simple():
+    def console(self) -> "Console":
+    __all__,
+        # rough
+    assert slanted.prop['ItalicAngle'] == -45
+            40: "mac_latin2",
+    topDict = topDictData[0]
+	> # big endian
+            np.unravel_index(2, hape=(2, 2))
+from collections.abc import Iterable
+    >> "fvar" not in instance
+import functools
+        ((None, None, None),),  # Too many
+    MAXSIZE = sys.maxsize
+        ttFont,
+import numpy as np
+from ._binary import o8
+@lru_cache
+    """
+np.index_exp[0:1, None:3]
+            done.append(clazz)
+from .color_triplet import ColorTriplet
+            "CONTIGUOUS",
+class UnknownConstraint(Exception):
+    4: ("P", "P;4"),
+    from . import F__e_a_t
+np.unravel_index([31, 41, 13], (7, 6), order='F')
+    return c[0]
+            ax.apply_aspect(locator(ax, None))
+class Vector(tuple):
+        for (i = 0; i < length; i++) {
+from __future__ import print_function
+IPV4_PAT = r"(?:[0-9]{1,3}\.){3}[0-9]{1,3}"
+    Configuration,
+from fractions import Fraction
+from pkgutil import walk_packages
+    raise OSError(
+        Create a new Duration object.
+    that a subplot will be placed.
+    fig.canvas.mpl_connect("key_press_event", receive)
+import numpy as np
+    """
+import random
+    parser.add_argument(
+    if dtype == np.bool:
+        )
+    """
+    return Suppress(expr)
+    _ObjectCodes,
+    MAError,
+        res = isneginf(a, out)
+import itertools
+            cls = type(obj)
+class InvalidSdistFilename(ValueError):
+    str: _HEADER_VALIDATORS_STR,
+    # units in this table are allowed.
+@pytest.mark.parametrize('papersize', ['letter', 'figure'])
+    name : str
+__all__ = [
+class _lazyclassproperty:
+from pip._internal.cli.status_codes import SUCCESS
+    # gather known kerning groups based on the prefixes
+List of APIs returning or dealing with a string:
+    assert len(cmap) == 131
+import matplotlib.pyplot as plt
+class TestF77Callback(util.F2PyTest):
+    (3, 16): "LA",
+    ----------
+import bisect
+    ConfiguredBuildBackendHookCaller,
+                    return False
+    assert _has_method_heading(WithPublicMethods)
+# 1997-01-03 fl   Save palette images
+    this.rubberband_canvas = undefined;
+            :meth:`.ContourGenerator.filled`.
+    defaults = ssl.get_default_verify_paths()
+It expects:
+from psutil import BSD
+    major: int
+# candidate and requirement classes.
+        if axis is ax.xaxis:
+import logging
+import enum
+from __future__ import annotations
+    "space",
+        latest_filetype: str
+from numpy._core.numerictypes import sctypes
+    """
+    print()
+* ``pytest.ini`` is present (develop mode)
+altitude = 12847.5;
+import logging
+        cmd, capture_output=True, text=True,
+import functools
+    adv_adjust_by: dict
+            Measurement: A normalized measurement.
+class VerticalHatch(HatchPatternBase):
+    from typing import IO
+import numpy as np
+    0x2039: 0x203A,
+# SPDX-FileCopyrightText: 2015 Eric Larson
+x2: ArrayLike = 5
+import os.path
+class _UnicodeCustom(object):
+        new = _TokenType(self + (val,))
+    'complex': {
+        return psstring + "}"
+import numpy as np
+# 2004-07-19 fl   Fixed gray/grey spelling issues
+fftn(a, s=None, axes=None, norm="backward")
+        else:
+# on page 656
+        self.location = location
+from . import util
+window.mpl = {};
+    .. code-block:: python
+    sock = getattr(conn, "sock", False)
+        )
+        "pip._internal.commands.download",
+target.lock(coordinates);
+def _nonblank(str):
+    ControlType.BELL: lambda: "\x07",
+import time
+b_ % b_
+}
+        *,
+    check_offset_array(offsets)
+logger = logging.getLogger(__name__)
+        (np.half, -0.000099, "-9.9e-05"),
+    if (!this.supports_binary) {
+    "ampersand",
+for i in range(n):
+    ctypes = None
+    y = np.arange(9)
+from contourpy.array import offsets_from_codes
+        return isinstance(other, self.__class__)
+    ...     np.complex64,
+    if binary:
+    cext.TCPS_FIN_WAIT_1: _common.CONN_FIN_WAIT1,
+from .emoji import EmojiVariant
+from pip._vendor.pygments.styles import get_style_by_name
+    InsecureRequestWarning,
+if TYPE_CHECKING:
+    as_complex,
+from fontTools.pens.boundsPen import BoundsPen
+        assert_equal(test,
+        self.name = name
+    dtype_to_descr,
+import tempfile
+        >>> from typing import TYPE_CHECKING
+    def toXML(self, writer, ttFont):
+        # try with names
+class TargetPython:
+flight_systems.engage();
+    del _abstract_type_name
+# Copyright (c) 1997-2003 by Fredrik Lundh.
+            15: "mac_iceland",
+                           height_ratios=(3, 1),
+            self.file = fileOrPath
+async fn scan_threat_level() {
+    from . import _tkagg
+from pip._internal.utils.logging import getLogger
+            raise ImportError(notice)
+            # ASCII is the same in UTF-8
+    ignore_require_venv = True
+        meson_version="1.8.2",
+                facecolor=fig.get_facecolor(),
+    def _unaryOp(self, op):
+        return []
+    msg = msg.format(name=c.__name__)
+# Copyright (c) 1997-2004 by Secret Labs AB
+        assert_raises(IndexError, x.take, [1], axis=2)
+        self.parent_pos = parent_pos
+""" Test functions for limits module.
+    :license: BSD, see LICENSE for details.
+__version__ = _version.__version__
+from pip._internal.utils.temp_dir import (
+            >>> pen.closePath()
+    this.frames = new Array(frames.length);
+                "\N{LATIN SMALL LETTER A WITH GRAVE}",
+    def test_crackedlines(self):
+        self.ignoreSinglePoints = ignoreSinglePoints
+    if name in __all__:
+import json
+CallableOperator = Callable[[Version, str], bool]
+    def decompile(self, data, ttFont):
+    ----------
+import matplotlib as mpl
+def test_empty():
+        mtx = trans.get_matrix()
+import optparse
+from optparse import Values
+import sys
+    ...     np.complex128,
+NO WARRANTY IS EXPRESSED OR IMPLIED.  USE AT YOUR OWN RISK.
+        assert abs(t(array([234], "l")) - 234.0) <= err
+    ConfigurationError,
+log = logging.getLogger("fontTools.varLib.avar")
+from .pretty import Pretty
+FMTERDOC = '''
+_Shape: TypeAlias = tuple[int, ...]
+3. If you are using `App Engine Flexible
+class ImageComparisonFailure(AssertionError):
+from .text import Text
+        self.style = style
+import contextlib
+    DrawingArea, TextArea,
+    "zero",
+# https://xkcd.com/color/rgb/
+import pytest
+from datetime import timedelta
+    """Inclusive maximum of the range."""
+def _showwarning(
+from importlib import import_module
+                            index_array.put(0, index)
+    @pytest.mark.xfail(reason="See gh-10544")
+    Returns
+        pattern = fr'\(got {re.escape(repr(val))}\)'
+            May be negative.
+        >>> p.fromBytecode(bc)
+from fontTools.misc.lazyTools import LazyDict
+    import textwrap
+import numpy as np
+        it = iter(iterable)
+        points = arr.concat_points(filled[0])
+from matplotlib.backend_bases import MouseEvent
+async fn scan_threat_level() {
+           'stack', 'unstack', 'vstack']
+def _decode_range(r: int) -> Tuple[int, int]:
+    return re.sub(r"[-_.]+", "-", name).lower()
+        usage="\n%prog <command> [options]",
+if TYPE_CHECKING:
+		ascent:                 h
+move distributions.dll ../../_examples/numba/
+Software is furnished to do so, subject to the following
+from matplotlib import pyplot as plt
+import textwrap
+        try:
+import pytest
+        assert f(Ki + 1) == '1.00 KiB'
+if typing.TYPE_CHECKING:
+from matplotlib.transforms import Affine2D
+T9 = [0, 9, 0, -120, 0, 432, 0, -576, 0, 256]
+    .. versionadded:: 3.10
+    buf = BytesIO()
+    sources = [
+# or substantial portions of the Software.
+import matplotlib as mpl
+    return {event: [] for event in HOOKS}
+divmod(b_, f)
+        (((None,),), TypeError),  # Too few elements
+        assert_(mvec.shape == (1, 5))
+    def fromXML(self, name, attrs, content, ttFont):
+from pip._vendor.rich.repr import RichReprResult
+from .interpolatableHelpers import *
+        self.candidate = candidate
+import sys
+                "backspace", "ctrl+backspace",
+The following presets are available by default:
+    for operator, operands in recording:
+- `nanmean` -- mean of non-NaN values
+import builtins
+import hypothesis
+===============
+from matplotlib.path import Path
+        del font["avar"]
+        ret = get_filetype_from_line(line)
+def test_lazy_imports():
+np.random.MT19937(SEED_ARRLIKE)
+        "osx_framework_library" in _AVAILABLE_SCHEMES
+import logging
+from __future__ import division
+                and item.__module__ != module_name):
+    assert_,
+        self.tool = tool
+class WindowsConsoleFeatures:
+_encoding_map = [(b'\xef\xbb\xbf', 'utf-8'),
+         r"\usepackage{mathpazo}", r"\rmfamily"),
+from typing import TYPE_CHECKING, cast
+    from sphinx_gallery import gen_rst
+	Convenience function that returns a scaling transformation
+# Time structures
+    def __init__(self):
+    'diagonal', 'mean', 'max', 'min', 'matrix_transpose',
+# This record is followd by a variable data length field:
+from .arc import EllipticalArc
+    else:
+    int64,
+    """
+except ImportError:
+__all__ = ["NAME", "Distribution", "Environment"]
+        warnings.warn(
+    """
+from pip._vendor.cachecontrol.cache import BaseCache
+    --------
+        if isinstance(other, LazyList):
+        checks.
+        p = np.poly1d([1., 2, 3])
+line_re = re.compile('.*?\n')
+from typing import TYPE_CHECKING, Generic
+  True
+from numpy.testing import assert_equal
+# PIL raster font management
+# Shorthands
+        check(1e15)
+    invalid_orders = KACF - order_set
+np.lib.mixins
+    from pip._vendor.cachecontrol.cache import BaseCache
+implicit and explicit interfaces.
+b_i4_f8_f8.nd
+    Msb = 2
+from ._compat import FileNotFoundError
+from io import StringIO
+def mintypecode(typechars, typeset='GDFgdf', default='d'):
+import io
+    LocationValueError,
+    vals = []
+import numpy as np
+    ParserElement,
+        return "Spine"
+    CmpPrePostDevType,
+        ):
+    RenderResult,
+_INCLUDE_SYSTEM_SITE_PACKAGES_REGEX = re.compile(
+    - :class:`comma-separated list<comma_separated_list>`
+from typing import (
+    try:
+import warnings
+   :toctree: generated/
+    def __str__(self) -> str:

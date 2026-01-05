@@ -1,0 +1,5 @@
+psutil==5.9.8
+numpy-stl
+matplotlib
+numpy
+Pillow
