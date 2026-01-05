@@ -1,5 +1,5 @@
 # -*- mode: python ; coding: utf-8 -*-
-
+import sys
 
 a = Analysis(
     ['system_monitor.py'],
@@ -42,9 +42,12 @@ coll = COLLECT(
     upx_exclude=[],
     name='JarvisMonitor',
 )
-app = BUNDLE(
-    coll,
-    name='JarvisMonitor.app',
-    icon=None,
-    bundle_identifier=None,
-)
+
+# macOS app bundle (only on macOS)
+if sys.platform == 'darwin':
+    app = BUNDLE(
+        coll,
+        name='JarvisMonitor.app',
+        icon=None,
+        bundle_identifier=None,
+    )
