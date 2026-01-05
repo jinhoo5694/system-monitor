@@ -739,8 +739,8 @@ class JarvisMonitor:
     def update_stats(self):
         """Update all system statistics"""
         try:
-            # CPU
-            cpu_percent = psutil.cpu_percent(interval=0.1)
+            # CPU (non-blocking - uses value since last call)
+            cpu_percent = psutil.cpu_percent(interval=None)
             self.cpu_history.append(cpu_percent)
             self.draw_arc_gauge(self.cpu_canvas, cpu_percent, color=self.primary)
             self.cpu_value_label.config(text=f"{cpu_percent:.1f}%")
@@ -805,15 +805,21 @@ class JarvisMonitor:
             except:
                 self.battery_label.config(text="N/A")
 
-            try:
-                # Get top CPU process
-                procs = [(p.info['name'][:10], p.info['cpu_percent'])
-                         for p in psutil.process_iter(['name', 'cpu_percent'])]
-                procs = sorted(procs, key=lambda x: x[1], reverse=True)[:1]
-                if procs and procs[0][1] > 0:
-                    self.top_proc_label.config(text=f"{procs[0][0]}")
-            except:
-                pass
+            # Get top CPU process (only every 5 seconds - expensive on Windows)
+            if not hasattr(self, '_proc_update_counter'):
+                self._proc_update_counter = 0
+            self._proc_update_counter += 1
+            if self._proc_update_counter >= 5:
+                self._proc_update_counter = 0
+                try:
+                    top_proc = max(
+                        psutil.process_iter(['name', 'cpu_percent']),
+                        key=lambda p: p.info['cpu_percent'] or 0
+                    )
+                    if top_proc.info['cpu_percent'] and top_proc.info['cpu_percent'] > 0:
+                        self.top_proc_label.config(text=top_proc.info['name'][:10])
+                except:
+                    pass
 
             # Footer updates
             self.time_label.config(text=now.strftime("SYS.TIME: %Y-%m-%d %H:%M:%S"))
