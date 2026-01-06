@@ -177,12 +177,9 @@ class JarvisMonitor:
         self._stats_thread = threading.Thread(target=self._collect_stats_background, daemon=True)
         self._stats_thread.start()
 
-        # Start UI updates (reads from shared stats - very fast)
-        self.update_ui()
-
-        # Start animations (completely independent)
-        self.animate_model()
-        self.scroll_code()
+        # Start unified animation loop (single timer for all animations)
+        self._tick_counter = 0
+        self.unified_update()
 
     def _collect_stats_background(self):
         """Background thread: Collect all system stats without blocking UI"""
@@ -519,7 +516,7 @@ class JarvisMonitor:
         code_frame = tk.Frame(code_outer, bg=self.bg_color)
         code_frame.place(relx=0.5, rely=0, anchor='n', relheight=1.0)
 
-        # Left code scroll panel - SYS
+        # Left code scroll panel - SYS (using Labels for Windows performance)
         left_code_frame = tk.Frame(code_frame, bg='#0a0f14', width=155,
                                    highlightbackground=self.secondary, highlightthickness=1)
         left_code_frame.pack(side=tk.LEFT, fill=tk.Y, padx=3)
@@ -529,10 +526,15 @@ class JarvisMonitor:
                               bg='#0a0f14', fg=self.secondary)
         left_header.pack(pady=2)
 
-        self.left_code_canvas = tk.Canvas(left_code_frame, bg='#0a0f14', highlightthickness=0)
-        self.left_code_canvas.pack(fill=tk.BOTH, expand=True)
+        # Use Labels instead of Canvas for better Windows performance
+        self.left_code_labels = []
+        for i in range(15):  # Fixed number of visible lines
+            lbl = tk.Label(left_code_frame, text="", font=('Courier', 6),
+                          bg='#0a0f14', fg='#00a0c0', anchor='w', width=25)
+            lbl.pack(anchor='w', padx=2)
+            self.left_code_labels.append(lbl)
 
-        # Right code scroll panel - DATA
+        # Right code scroll panel - DATA (using Labels for Windows performance)
         right_code_frame = tk.Frame(code_frame, bg='#0a0f14', width=155,
                                     highlightbackground=self.secondary, highlightthickness=1)
         right_code_frame.pack(side=tk.LEFT, fill=tk.Y, padx=3)
@@ -542,8 +544,13 @@ class JarvisMonitor:
                                bg='#0a0f14', fg=self.secondary)
         right_header.pack(pady=2)
 
-        self.right_code_canvas = tk.Canvas(right_code_frame, bg='#0a0f14', highlightthickness=0)
-        self.right_code_canvas.pack(fill=tk.BOTH, expand=True)
+        # Use Labels instead of Canvas for better Windows performance
+        self.right_code_labels = []
+        for i in range(15):  # Fixed number of visible lines
+            lbl = tk.Label(right_code_frame, text="", font=('Courier', 6),
+                          bg='#0a0f14', fg='#00a0c0', anchor='w', width=25)
+            lbl.pack(anchor='w', padx=2)
+            self.right_code_labels.append(lbl)
 
         # Status indicators at bottom
         status_frame = tk.Frame(main_container, bg=self.bg_color)
@@ -557,62 +564,6 @@ class JarvisMonitor:
             lbl = tk.Label(status_frame, text=status, font=self.small_font, bg=self.bg_color, fg=color)
             lbl.pack(side=tk.LEFT, padx=8)
             self.status_labels.append(lbl)
-
-    def scroll_code(self):
-        """Animate scrolling code in side panels"""
-        if not self._running:
-            return
-
-        if not self.code_lines:
-            self.root.after(100, self.scroll_code)
-            return
-
-        # Left panel - scroll up
-        self.left_code_canvas.delete("all")
-        canvas_height = self.left_code_canvas.winfo_height()
-        line_height = 12
-        visible_lines = canvas_height // line_height + 2
-
-        for i in range(visible_lines):
-            line_idx = int(self.code_scroll_offset_left + i) % len(self.code_lines)
-            y = i * line_height - (self.code_scroll_offset_left % 1) * line_height
-            line = self.code_lines[line_idx][:25]  # More characters to fill width
-
-            # Fade effect based on position
-            if i < 2:
-                color = '#1a3a4a'
-            elif i > visible_lines - 3:
-                color = '#1a3a4a'
-            else:
-                color = '#00a0c0'
-
-            self.left_code_canvas.create_text(3, y, text=line, anchor='nw',
-                                              font=('Courier', 6), fill=color)
-
-        self.code_scroll_offset_left = (self.code_scroll_offset_left + 0.5) % len(self.code_lines)
-
-        # Right panel - scroll down (different content)
-        self.right_code_canvas.delete("all")
-        canvas_height = self.right_code_canvas.winfo_height()
-
-        for i in range(visible_lines):
-            line_idx = int(len(self.code_lines) - self.code_scroll_offset_right - i) % len(self.code_lines)
-            y = i * line_height
-            line = self.code_lines[line_idx][:25]  # More characters to fill width
-
-            if i < 2:
-                color = '#1a3a4a'
-            elif i > visible_lines - 3:
-                color = '#1a3a4a'
-            else:
-                color = '#00a0c0'
-
-            self.right_code_canvas.create_text(3, y, text=line, anchor='nw',
-                                               font=('Courier', 6), fill=color)
-
-        self.code_scroll_offset_right = (self.code_scroll_offset_right + 0.3) % len(self.code_lines)
-
-        self.root.after(80, self.scroll_code)
 
     def create_right_panel(self, parent):
         """Create right panel with network stats"""
@@ -864,18 +815,6 @@ class JarvisMonitor:
                                   points_up[i+1][0], points_up[i+1][1],
                                   fill=self.accent, width=1)
 
-    def animate_model(self):
-        """Animate the 3D model by cycling through pre-rendered frames - NEVER BLOCKS"""
-        if not self._running:
-            return
-
-        if self.frames:
-            self.model_label.config(image=self.frames[self.current_frame])
-            self.current_frame = (self.current_frame + 1) % len(self.frames)
-
-        # Smooth animation at 20fps
-        self.root.after(50, self.animate_model)
-
     def format_bytes(self, bytes_val):
         """Format bytes to human readable format"""
         for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
@@ -893,13 +832,57 @@ class JarvisMonitor:
         else:
             return f"{bytes_per_sec/(1024*1024):.1f} MB/s"
 
-    def update_ui(self):
-        """Update UI from background-collected stats - FAST, NO BLOCKING"""
+    def unified_update(self):
+        """Single unified timer for all animations - reduces Windows overhead"""
         if not self._running:
             return
 
+        self._tick_counter += 1
+
+        # Model animation: every tick (100ms = 10fps)
+        if self.frames:
+            self.model_label.config(image=self.frames[self.current_frame])
+            self.current_frame = (self.current_frame + 1) % len(self.frames)
+
+        # Code scroll: every 2 ticks (200ms)
+        if self._tick_counter % 2 == 0:
+            self._update_code_scroll()
+
+        # UI stats: every 5 ticks (500ms)
+        if self._tick_counter % 5 == 0:
+            self._update_stats_display()
+
+        # Single timer at 100ms base rate
+        self.root.after(100, self.unified_update)
+
+    def _update_code_scroll(self):
+        """Update code scroll displays"""
+        if not self.code_lines:
+            return
+
+        num_labels = len(self.left_code_labels)
+
+        # Left panel - scroll up
+        for i, lbl in enumerate(self.left_code_labels):
+            line_idx = (int(self.code_scroll_offset_left) + i) % len(self.code_lines)
+            line = self.code_lines[line_idx][:25]
+            color = '#1a3a4a' if (i < 2 or i > num_labels - 3) else '#00a0c0'
+            lbl.config(text=line, fg=color)
+
+        self.code_scroll_offset_left = (self.code_scroll_offset_left + 1) % len(self.code_lines)
+
+        # Right panel - scroll down
+        for i, lbl in enumerate(self.right_code_labels):
+            line_idx = (len(self.code_lines) - int(self.code_scroll_offset_right) - i) % len(self.code_lines)
+            line = self.code_lines[line_idx][:25]
+            color = '#1a3a4a' if (i < 2 or i > num_labels - 3) else '#00a0c0'
+            lbl.config(text=line, fg=color)
+
+        self.code_scroll_offset_right = (self.code_scroll_offset_right + 1) % len(self.code_lines)
+
+    def _update_stats_display(self):
+        """Update stats display from background-collected data"""
         try:
-            # Read stats (thread-safe, very fast)
             with self._stats_lock:
                 stats = self._stats.copy()
 
@@ -942,7 +925,7 @@ class JarvisMonitor:
 
             # Battery
             if stats['battery_percent'] is not None:
-                status = "⚡" if stats['battery_plugged'] else ""
+                status = "+" if stats['battery_plugged'] else ""
                 self.battery_label.config(text=f"{stats['battery_percent']:.0f}%{status}")
             else:
                 self.battery_label.config(text="AC")
@@ -956,10 +939,7 @@ class JarvisMonitor:
             self.proc_mem_label.config(text=f"PROC.MEM: {self.format_bytes(stats['self_mem'])}")
 
         except Exception as e:
-            print(f"UI update error: {e}")
-
-        # Schedule next UI update (fast interval since we're just reading cached data)
-        self.root.after(500, self.update_ui)
+            print(f"Stats display error: {e}")
 
 
 def main():
